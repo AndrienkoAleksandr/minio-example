@@ -40,7 +40,7 @@ func main() {
     } else {
         log.Printf("Successfully created %s\n", bucketName)
     }
-    return
+
 	// Upload the zip file
 	objectName := "package.json"
 	filePath := "/Users/oandriie/projects/" + objectName
