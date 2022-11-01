@@ -43,7 +43,7 @@ func main() {
 
 	// Upload the zip file
 	objectName := "test.txt"
-	filePath := "/projects/" + objectName
+	filePath := "/projects/minio-example/" + objectName
 	contentType := "application/json"
 
 	// Upload the zip file with FPutObject
