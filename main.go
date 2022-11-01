@@ -42,8 +42,8 @@ func main() {
     }
 
 	// Upload the zip file
-	objectName := "package.json"
-	filePath := "/Users/oandriie/projects/" + objectName
+	objectName := "test.txt"
+	filePath := "/projects/" + objectName
 	contentType := "application/json"
 
 	// Upload the zip file with FPutObject
