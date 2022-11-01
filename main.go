@@ -10,7 +10,7 @@ import (
 
 func main() {
 	ctx := context.Background()
-    endpoint := "test-minio-tenant.apps-crc.testing"
+    endpoint := "minio.minio-tenant.svc.cluster.local"
     accessKeyID := "minio"
     secretAccessKey := "minio123"
     useSSL := false
