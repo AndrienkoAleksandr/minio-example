@@ -11,8 +11,8 @@ import (
 func main() {
 	ctx := context.Background()
     endpoint := "minio.tekton-results.svc.cluster.local"
-    accessKeyID := "console" // "minio"
-    secretAccessKey := "console123" // "minio123"
+    accessKeyID := "minio" // "minio"
+    secretAccessKey := "minio123" // "minio123"
     useSSL := true
 
     // Initialize minio client object.
