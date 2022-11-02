@@ -76,19 +76,19 @@ func main() {
 		log.Fatal(err)
 	}
 
-	content2 := "Hello multi-part2"
-	reader2 := strings.NewReader(content2)
-	part2, err := uploader.S3.UploadPart(context.TODO(), 
-	&s3.UploadPartInput{
-		UploadId: uploadId,
-		Bucket: &bucket,
-		Key: &key,
-		PartNumber: 2,
-		Body: reader2,
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
+	// content2 := "Hello multi-part2"
+	// reader2 := strings.NewReader(content2)
+	// part2, err := uploader.S3.UploadPart(context.TODO(), 
+	// &s3.UploadPartInput{
+	// 	UploadId: uploadId,
+	// 	Bucket: &bucket,
+	// 	Key: &key,
+	// 	PartNumber: 2,
+	// 	Body: reader2,
+	// })
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
 
 	_, err = uploader.S3.CompleteMultipartUpload(context.TODO(),
@@ -102,10 +102,10 @@ func main() {
 						PartNumber: 1,
 						ETag: part1.ETag,
 					},
-					{
-						PartNumber: 2,
-						ETag: part2.ETag,
-					},
+					// {
+					// 	PartNumber: 2,
+					// 	ETag: part2.ETag,
+					// },
 				},
 			},
 		},
