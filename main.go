@@ -13,7 +13,7 @@ func main() {
     endpoint := "minio.tekton-results.svc.cluster.local"
     accessKeyID := "console" // "minio"
     secretAccessKey := "console123" // "minio123"
-    useSSL := false
+    useSSL := true
 
     // Initialize minio client object.
     minioClient, err := minio.New(endpoint, &minio.Options{
