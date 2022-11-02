@@ -10,9 +10,9 @@ import (
 
 func main() {
 	ctx := context.Background()
-    endpoint := "minio.minio-tenant.svc.cluster.local"
-    accessKeyID := "minio"
-    secretAccessKey := "minio123"
+    endpoint := "minio.tekton-results.svc.cluster.local"
+    accessKeyID := "console" // "minio"
+    secretAccessKey := "console123" // "minio123"
     useSSL := false
 
     // Initialize minio client object.
@@ -25,7 +25,7 @@ func main() {
     }
 
     // Make a new bucket called mymusic.
-    bucketName := "mymusic"
+    bucketName := "tekton-results"
     location := "us-east-1"
 
     err = minioClient.MakeBucket(ctx, bucketName, minio.MakeBucketOptions{Region: location})
