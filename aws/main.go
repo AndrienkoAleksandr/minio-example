@@ -49,6 +49,18 @@ func main() {
 	bucket := "tekton-results"
 	key := "my-object-key.txt"
 
+	lo, err := client.ListBuckets(context.TODO(), &s3.ListBucketsInput{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	a := lo.Buckets
+	for _, bucket := range a {
+		fmt.Println(bucket.Name)
+	}
+	if len(lo.Buckets) == 0 {
+		fmt.Println("no buckets!")
+	}
+
 	uploader := manager.NewUploader(client)
 	out, err := uploader.S3.CreateMultipartUpload(context.TODO(),
 		&s3.CreateMultipartUploadInput{
