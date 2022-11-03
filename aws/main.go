@@ -21,16 +21,16 @@ const (
 )
 
 func main() {
-		customResolver := aws.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (aws.Endpoint, error) {
-			if service == dynamodb.ServiceID && region == awsRegion {
-				fmt.Println("------------")
-			}
-			//	fmt.Printf("Endpoint should work, but I guess for region '%s'", region)
-			return aws.Endpoint{
-				URL: "https://minio.tekton-results.svc.cluster.local",
-				SigningRegion: awsRegion,
-				HostnameImmutable: true,
-			}, nil
+	customResolver := aws.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (aws.Endpoint, error) {
+		if service == dynamodb.ServiceID && region == awsRegion {
+			fmt.Println("------------")
+		}
+		//	fmt.Printf("Endpoint should work, but I guess for region '%s'", region)
+		return aws.Endpoint{
+			URL:               "https://minio.tekton-results-2.svc.cluster.local",
+			SigningRegion:     awsRegion,
+			HostnameImmutable: true,
+		}, nil
 	})
 	credentialsOpt := config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider("minio", "minio123", ""))
 
@@ -53,8 +53,7 @@ func main() {
 	out, err := uploader.S3.CreateMultipartUpload(context.TODO(),
 		&s3.CreateMultipartUploadInput{
 			Bucket: &bucket,
-			Key: &key,
-			
+			Key:    &key,
 		},
 	)
 	if err != nil {
@@ -64,21 +63,21 @@ func main() {
 
 	content1 := "Hello multi-part"
 	reader1 := strings.NewReader(content1)
-	part1, err := uploader.S3.UploadPart(context.TODO(), 
-	&s3.UploadPartInput{
-		UploadId: uploadId,
-		Bucket: &bucket,
-		Key: &key,
-		PartNumber: 1,
-		Body: reader1,
-	})
+	part1, err := uploader.S3.UploadPart(context.TODO(),
+		&s3.UploadPartInput{
+			UploadId:   uploadId,
+			Bucket:     &bucket,
+			Key:        &key,
+			PartNumber: 1,
+			Body:       reader1,
+		})
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// content2 := "Hello multi-part2"
 	// reader2 := strings.NewReader(content2)
-	// part2, err := uploader.S3.UploadPart(context.TODO(), 
+	// part2, err := uploader.S3.UploadPart(context.TODO(),
 	// &s3.UploadPartInput{
 	// 	UploadId: uploadId,
 	// 	Bucket: &bucket,
@@ -90,17 +89,16 @@ func main() {
 	// 	log.Fatal(err)
 	// }
 
-
 	_, err = uploader.S3.CompleteMultipartUpload(context.TODO(),
 		&s3.CompleteMultipartUploadInput{
-			Bucket: &bucket,
-			Key: &key,
+			Bucket:   &bucket,
+			Key:      &key,
 			UploadId: uploadId,
 			MultipartUpload: &types.CompletedMultipartUpload{
 				Parts: []types.CompletedPart{
 					{
 						PartNumber: 1,
-						ETag: part1.ETag,
+						ETag:       part1.ETag,
 					},
 					// {
 					// 	PartNumber: 2,
