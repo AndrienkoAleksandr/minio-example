@@ -32,7 +32,7 @@ func main() {
 			HostnameImmutable: true,
 		}, nil
 	})
-	credentialsOpt := config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider("storage-user", "console", ""))
+	credentialsOpt := config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider("minio", "minio123", ""))
 
 	cfg, err := config.LoadDefaultConfig(context.TODO(),
 		config.WithEndpointResolverWithOptions(customResolver),
