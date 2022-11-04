@@ -32,7 +32,7 @@ func main() {
 			HostnameImmutable: true,
 		}, nil
 	})
-	credentialsOpt := config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider("console", "console123", ""))
+	credentialsOpt := config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider("storage-user", "console123", ""))
 
 	cfg, err := config.LoadDefaultConfig(context.TODO(),
 		config.WithEndpointResolverWithOptions(customResolver),
