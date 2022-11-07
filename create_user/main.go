@@ -64,7 +64,7 @@ func main() {
 	userSecretKey := strings.TrimSpace(string(consoleSecretKey))
 
 
-	host := "https://minio.tekton-results-2.svc.cluster.local"
+	host := "minio.tekton-results-2.svc.cluster.local"
 	accessKey := "minio"
 	secretKey := "minio123"
 
