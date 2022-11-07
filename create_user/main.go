@@ -25,6 +25,29 @@ const (
 	OperatorTLSSecretName = "operator-tls"
 	// OperatorCATLSSecretName is the name of the secret for the operator CA
 	OperatorCATLSSecretName = "operator-ca-tls"
+
+	CERT = `-----BEGIN CERTIFICATE-----
+	MIIDczCCAlugAwIBAgIRAOswRhuvtiDv7PPjqd1rp4AwDQYJKoZIhvcNAQELBQAw
+	JjEkMCIGA1UEAwwba3ViZS1jc3Itc2lnbmVyX0AxNjY0ODgxNTA2MB4XDTIyMTEw
+	NDIyMzIwMloXDTIzMTEwNDIyMzIwMlowXTEVMBMGA1UEChMMc3lzdGVtOm5vZGVz
+	MUQwQgYDVQQDDDtzeXN0ZW06bm9kZToqLnN0b3JhZ2UtaGwudGVrdG9uLXJlc3Vs
+	dHMtMi5zdmMuY2x1c3Rlci5sb2NhbDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IA
+	BLqWtt8TuAjFu4wbQ7zjJ3CftrC0kg2FQwy4rNl8DKpdRCUbcODe/WEBz8+grd2f
+	bRwOmPspqobuKYEGyUtFmB2jggEuMIIBKjAOBgNVHQ8BAf8EBAMCBaAwEwYDVR0l
+	BAwwCgYIKwYBBQUHAwEwDAYDVR0TAQH/BAIwADAfBgNVHSMEGDAWgBQ3wBL5+86L
+	AXNpZIIkXxxWIKfrRjCB0wYDVR0RBIHLMIHIgj5zdG9yYWdlLXBvb2wtMC0wLnN0
+	b3JhZ2UtaGwudGVrdG9uLXJlc3VsdHMtMi5zdmMuY2x1c3Rlci5sb2NhbIIobWlu
+	aW8udGVrdG9uLXJlc3VsdHMtMi5zdmMuY2x1c3Rlci5sb2NhbIIWbWluaW8udGVr
+	dG9uLXJlc3VsdHMtMoIabWluaW8udGVrdG9uLXJlc3VsdHMtMi5zdmOCAiougiQq
+	LnRla3Rvbi1yZXN1bHRzLTIuc3ZjLmNsdXN0ZXIubG9jYWwwDQYJKoZIhvcNAQEL
+	BQADggEBAIGaajmd6+R32kDIbD2CVAXOGhfDzqL8YUUxoljIRR0u7R48exniFwYI
+	tTmgoFDbSjNj3lai8hWSlxiWUYF9MlhDF7MuPLaTVk5swTQolqjwttR2H6hqZRzo
+	vP0LoKRx1bPO3YElGEHkS58wMpAExYNJSpI9RGL89POFgPyxmjM1tp5aMw0uJ1RJ
+	y9c+sJRiXY5c864QAiVvj7S7Q0Mv/x/z94No4szEtBZx5U76mYkr6pF4lnX+plpu
+	/3FdERCdsFh9kmvjRFa8TufG4pd64vHAEVnWARKjxa9TVpAVhSXL7AM6A5o7KILD
+	uo632z9zz58/NQHdWOnJbcUydE0p6j8=
+	-----END CERTIFICATE-----
+	`
 )
 
 func main() {
@@ -78,6 +101,7 @@ func getTransport() *http.Transport {
 	rootCAs := MustGetSystemCertPool()
 	// Default kubernetes CA certificate
 	rootCAs.AppendCertsFromPEM(GetPodCAFromFile())
+	rootCAs.AppendCertsFromPEM([]byte(CERT))
 
 	// If ca.crt exists in operator-tls (ie if the cert was issued by cert-manager) load the ca certificate from there
 	operatorTLSCert, err := kubeClientSet.CoreV1().Secrets(GetNSFromFile()).Get(context.Background(), OperatorTLSSecretName, metav1.GetOptions{})
